@@ -158,7 +158,7 @@ do{ \
 
 /* Used to set up and access simple temp stacks within functions. */
 #define DECLARE_TEMP(N) \
-  mpz_t temp[(N)]; \
+  impz_t temp[(N)]; \
   int last__ = 0
 #define CLEANUP_TEMP() \
  CLEANUP: \
@@ -372,7 +372,7 @@ mp_result mp_int_init(mp_int z)
 
 mp_int    mp_int_alloc(void)
 {
-  mp_int out = (mp_int) malloc(sizeof(mpz_t));
+  mp_int out = (mp_int) malloc(sizeof(impz_t));
 
   if (out != NULL)
     mp_int_init(out);
@@ -429,7 +429,7 @@ mp_result mp_int_init_copy(mp_int z, mp_int old)
 
 mp_result mp_int_init_value(mp_int z, mp_small value)
 {
-  mpz_t    vtmp;
+  impz_t    vtmp;
   mp_digit vbuf[MP_VALUE_DIGITS(value)];
 
   s_fake(&vtmp, value, vbuf);
@@ -438,7 +438,7 @@ mp_result mp_int_init_value(mp_int z, mp_small value)
 
 mp_result mp_int_init_uvalue(mp_int z, mp_usmall uvalue)
 {
-  mpz_t    vtmp;
+  impz_t    vtmp;
   mp_digit vbuf[MP_VALUE_DIGITS(uvalue)];
 
   s_ufake(&vtmp, uvalue, vbuf);
@@ -447,7 +447,7 @@ mp_result mp_int_init_uvalue(mp_int z, mp_usmall uvalue)
 
 mp_result  mp_int_set_value(mp_int z, mp_small value)
 {
-  mpz_t    vtmp;
+  impz_t    vtmp;
   mp_digit vbuf[MP_VALUE_DIGITS(value)];
 
   s_fake(&vtmp, value, vbuf);
@@ -456,7 +456,7 @@ mp_result  mp_int_set_value(mp_int z, mp_small value)
 
 mp_result  mp_int_set_uvalue(mp_int z, mp_usmall uvalue)
 {
-  mpz_t    vtmp;
+  impz_t    vtmp;
   mp_digit vbuf[MP_VALUE_DIGITS(uvalue)];
 
   s_ufake(&vtmp, uvalue, vbuf);
@@ -508,7 +508,7 @@ mp_result mp_int_copy(mp_int a, mp_int c)
 void      mp_int_swap(mp_int a, mp_int c)
 {
   if (a != c) {
-    mpz_t tmp = *a;
+    impz_t tmp = *a;
 
     *a = *c;
     *c = tmp;
@@ -624,7 +624,7 @@ mp_result mp_int_add(mp_int a, mp_int b, mp_int c)
 
 mp_result mp_int_add_value(mp_int a, mp_small value, mp_int c)
 {
-  mpz_t    vtmp;
+  impz_t    vtmp;
   mp_digit vbuf[MP_VALUE_DIGITS(value)];
 
   s_fake(&vtmp, value, vbuf);
@@ -694,7 +694,7 @@ mp_result mp_int_sub(mp_int a, mp_int b, mp_int c)
 
 mp_result mp_int_sub_value(mp_int a, mp_small value, mp_int c)
 {
-  mpz_t    vtmp;
+  impz_t    vtmp;
   mp_digit vbuf[MP_VALUE_DIGITS(value)];
 
   s_fake(&vtmp, value, vbuf);
@@ -762,7 +762,7 @@ mp_result mp_int_mul(mp_int a, mp_int b, mp_int c)
 
 mp_result mp_int_mul_value(mp_int a, mp_small value, mp_int c)
 {
-  mpz_t    vtmp;
+  impz_t    vtmp;
   mp_digit vbuf[MP_VALUE_DIGITS(value)];
 
   s_fake(&vtmp, value, vbuf);
@@ -928,7 +928,7 @@ mp_result mp_int_div(mp_int a, mp_int b, mp_int q, mp_int r)
 mp_result mp_int_mod(mp_int a, mp_int m, mp_int c)
 {
   mp_result res;
-  mpz_t     tmp;
+  impz_t     tmp;
   mp_int    out;
 
   if (m == c) {
@@ -956,7 +956,7 @@ mp_result mp_int_mod(mp_int a, mp_int m, mp_int c)
 
 mp_result mp_int_div_value(mp_int a, mp_small value, mp_int q, mp_small *r)
 {
-  mpz_t     vtmp, rtmp;
+  impz_t     vtmp, rtmp;
   mp_digit  vbuf[MP_VALUE_DIGITS(value)];
   mp_result res;
 
@@ -991,7 +991,7 @@ mp_result mp_int_div_pow2(mp_int a, mp_small p2, mp_int q, mp_int r)
 
 mp_result mp_int_expt(mp_int a, mp_small b, mp_int c)
 {
-  mpz_t t;
+  impz_t t;
   mp_result res;
   unsigned int v = labs(b);
 
@@ -1023,7 +1023,7 @@ mp_result mp_int_expt(mp_int a, mp_small b, mp_int c)
 
 mp_result mp_int_expt_value(mp_small a, mp_small b, mp_int c)
 {
-  mpz_t     t;
+  impz_t     t;
   mp_result res;
   unsigned int v = labs(b);
 
@@ -1055,7 +1055,7 @@ mp_result mp_int_expt_value(mp_small a, mp_small b, mp_int c)
 
 mp_result mp_int_expt_full(mp_int a, mp_int b, mp_int c)
 {
-  mpz_t t;
+  impz_t t;
   mp_result res;
   unsigned ix, jx;
 
@@ -1203,7 +1203,7 @@ mp_result mp_int_exptmod(mp_int a, mp_int b, mp_int m, mp_int c)
 
 mp_result mp_int_exptmod_evalue(mp_int a, mp_small value, mp_int m, mp_int c)
 {
-  mpz_t vtmp;
+  impz_t vtmp;
   mp_digit vbuf[MP_VALUE_DIGITS(value)];
 
   s_fake(&vtmp, value, vbuf);
@@ -1214,7 +1214,7 @@ mp_result mp_int_exptmod_evalue(mp_int a, mp_small value, mp_int m, mp_int c)
 mp_result mp_int_exptmod_bvalue(mp_small value, mp_int b,
 				mp_int m, mp_int c)
 {
-  mpz_t vtmp;
+  impz_t vtmp;
   mp_digit vbuf[MP_VALUE_DIGITS(value)];
 
   s_fake(&vtmp, value, vbuf);
@@ -1312,7 +1312,7 @@ mp_result mp_int_invmod(mp_int a, mp_int m, mp_int c)
 mp_result mp_int_gcd(mp_int a, mp_int b, mp_int c)
 {
   int ca, cb, k = 0;
-  mpz_t u, v, t;
+  impz_t u, v, t;
   mp_result res;
 
   CHECK(a != NULL && b != NULL && c != NULL);
@@ -1497,7 +1497,7 @@ mp_result mp_int_egcd(mp_int a, mp_int b, mp_int c,
 
 mp_result mp_int_lcm(mp_int a, mp_int b, mp_int c)
 {
-  mpz_t lcm;
+  impz_t lcm;
   mp_result res;
 
   CHECK(a != NULL && b != NULL && c != NULL);
@@ -1684,7 +1684,7 @@ mp_result mp_int_to_string(mp_int z, mp_size radix,
     *str++ = s_val2ch(0, 1);
   }
   else {
-    mpz_t tmp;
+    impz_t tmp;
     char  *h, *t;
 
     if ((res = mp_int_init_copy(&tmp, z)) != MP_OK)
@@ -2098,7 +2098,7 @@ STATIC int      s_vcmp(mp_int a, mp_small v)
 
 STATIC int      s_uvcmp(mp_int a, mp_usmall uv)
 {
-  mpz_t vtmp;
+  impz_t vtmp;
   mp_digit vdig[MP_VALUE_DIGITS(uv)];
 
   s_ufake(&vtmp, uv, vdig);
@@ -2837,7 +2837,7 @@ STATIC mp_result s_embar(mp_int a, mp_int b, mp_int m, mp_int mu, mp_int c)
            u % v stored in v
  */
 STATIC mp_result s_udiv_knuth(mp_int u, mp_int v) {
-  mpz_t q, r, t;
+  impz_t q, r, t;
   mp_result
   res = MP_OK;
   int k,j;

@@ -277,7 +277,7 @@ mp_result mp_rat_div(mp_rat a, mp_rat b, mp_rat c)
     return MP_UNDEF;
 
   if (c == a || c == b) {
-    mpz_t tmp;
+    impz_t tmp;
 
     if ((res = mp_int_init(&tmp)) != MP_OK) return res;
     if ((res = mp_int_mul(MP_NUMER_P(a), MP_DENOM_P(b), &tmp)) != MP_OK) 
@@ -304,7 +304,7 @@ mp_result mp_rat_div(mp_rat a, mp_rat b, mp_rat c)
 
 mp_result mp_rat_add_int(mp_rat a, mp_int b, mp_rat c)
 {
-  mpz_t tmp;
+  impz_t tmp;
   mp_result res;
 
   if ((res = mp_int_init_copy(&tmp, b)) != MP_OK)
@@ -328,7 +328,7 @@ mp_result mp_rat_add_int(mp_rat a, mp_int b, mp_rat c)
 
 mp_result mp_rat_sub_int(mp_rat a, mp_int b, mp_rat c)
 {
-  mpz_t tmp;
+  impz_t tmp;
   mp_result res;
 
   if ((res = mp_int_init_copy(&tmp, b)) != MP_OK)
@@ -427,7 +427,7 @@ int       mp_rat_compare_unsigned(mp_rat a, mp_rat b)
     return mp_int_compare_unsigned(MP_NUMER_P(a), MP_NUMER_P(b));
 
   else {
-    mpz_t  temp[2];
+    impz_t  temp[2];
     mp_result res;
     int  cmp = INT_MAX, last = 0;
 
@@ -456,7 +456,7 @@ int       mp_rat_compare_zero(mp_rat r)
 
 int       mp_rat_compare_value(mp_rat r, mp_small n, mp_small d)
 {
-  mpq_t tmp;
+  impq_t tmp;
   mp_result res;
   int  out = INT_MAX;
 
@@ -521,7 +521,7 @@ mp_result mp_rat_to_string(mp_rat r, mp_size radix, char *str, int limit)
 mp_result mp_rat_to_decimal(mp_rat r, mp_size radix, mp_size prec,
                             mp_round_mode round, char *str, int limit)
 {
-  mpz_t temp[3];
+  impz_t temp[3];
   mp_result res;
   char *start = str;
   int len, lead_0, left = limit, last = 0;
@@ -796,7 +796,7 @@ mp_result mp_rat_read_cdecimal(mp_rat r, mp_size radix, const char *str,
     return MP_TRUNC;
   }
   else {
-    mpz_t  frac;
+    impz_t  frac;
     mp_result save_res;
     char  *save = endp;
     int    num_lz = 0;
@@ -877,7 +877,7 @@ mp_result mp_rat_read_cdecimal(mp_rat r, mp_size radix, const char *str,
 
 static mp_result s_rat_reduce(mp_rat r)
 {
-  mpz_t gcd;
+  impz_t gcd;
   mp_result res = MP_OK;
 
   if (mp_int_compare_zero(MP_NUMER_P(r)) == 0) {
@@ -929,7 +929,7 @@ static mp_result s_rat_combine(mp_rat a, mp_rat b, mp_rat c,
     return s_rat_reduce(c);
   }
   else {
-    mpz_t  temp[2];
+    impz_t  temp[2];
     int    last = 0;
 
     SETUP(mp_int_init_copy(TEMP(last), MP_NUMER_P(a)), last);

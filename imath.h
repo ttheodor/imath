@@ -59,7 +59,7 @@ typedef struct mpz {
   mp_size     alloc;
   mp_size     used;
   mp_sign     sign;
-} mpz_t, *mp_int;
+} impz_t, *mp_int;
 
 #define MP_DIGITS(Z) ((Z)->digits)
 #define MP_ALLOC(Z)  ((Z)->alloc)
